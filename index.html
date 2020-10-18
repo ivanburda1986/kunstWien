@@ -3,9 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
   <title>Kunst Wien</title>
 </head>
 <body>
-  
+  <div id="map"></div>
+
+  <!-- Loads google maps and once done request a map initialisation -->
+  <script defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBofIsIetZSiaMJ4sR7G0y1OM3gIp_Mhzc&callback=initMap">
+  </script>
+  <!-- Loads a library for clustering map markers -->
+  <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
