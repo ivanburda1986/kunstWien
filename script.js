@@ -45,27 +45,86 @@ const getPositionErrorMessage = code => {
 
 
 // Load external JSON data about the art objects
-function getBrunnenData(map){
-  let brunnen = [];
-  let artTypes = new Set();
+function getArtData(map){
+  let artCollection = {};
   fetch("kunstWien.json")
   .then(response => response.json())
-
   .then(data => {
-    data.features.forEach(artType =>{
-      artTypes.add(artType.properties.TYP);
-    })
+    //Here we take one art data item after another
+    data.features.forEach(artObject =>{
+      //If the artCollection object already has an entry representing the art-type of the specific art data item, we just push the item into the entry array
+      if(artObject.properties.TYP in artCollection){
+        pushData();
+      //Else we first create an entry representing the art type and push the art data item into it only afterwards
+      } else{
+        artCollection[artObject.properties.TYP] = [];
+        pushData();
+      }
+      //Pushes specific art data item into the entry-array of its type within the artCollection
+      function pushData(){
+        artCollection[artObject.properties.TYP].push({
+          id: artObject.properties.ID,
+          name: artObject.properties.OBJEKTTITEL,
+          coordinates: {lat: artObject.geometry.coordinates[1], lng: artObject.geometry.coordinates[0]},
+          buildIn: artObject.properties.ENTSTEHUNG,
+          author: artObject.properties.KUENSTLER,
+        });
+      }
 
+    })
     //Only once the data is loaded request adding the markers
-    //addMarkers(brunnen,map);
-    
+
+    //Object.entries(artCollection).forEach(entry=>{addMarkers(entry[1]),map});
+
+    // addMarkers(Object.entries(artCollection)[0][1],map);
+    // addMarkers(Object.entries(artCollection)[1][1],map);
+    // addMarkers(Object.entries(artCollection)[2][1],map);
+    // addMarkers(Object.entries(artCollection)[3][1],map);
+    addMarkers(Object.entries(artCollection)[4][1],map);
+    // addMarkers(Object.entries(artCollection)[5][1],map);
+    // addMarkers(Object.entries(artCollection)[6][1],map);
   })
-  console.log(artTypes);
+  
 };
 
+//Add a location marker onto the map
+function addMarkers(brunnen,map){
+  let brunnenMarkers = [];
+  let infoWindows = [];
+  brunnen.forEach(brunne =>{
+    brunnenMarkers.push(new google.maps.Marker({position: brunne.coordinates, map: map})); //removed the label: {text: brunne.name, fontWeight: "500"},
+    infoWindows.push(new google.maps.InfoWindow({content: `${brunne.name}, ${brunne.author}, ${brunne.buildIn}`}));
+  });
+  //Attach info windows
+  attachInfoWindows(brunnenMarkers, infoWindows, map);
+  //Once the markers have been added request clustering them
+  clusterMarkers(brunnenMarkers, map);
+}
 
+//Cluster the markers
+function clusterMarkers(brunnenMarkers, map){
+  new MarkerClusterer(map, brunnenMarkers, {
+    imagePath:
+      "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+  });
+}
 
+//Attach info windows to markers
+function attachInfoWindows(brunnenMarkers, infoWindows, map){
+  for(let i = 0; i<brunnenMarkers.length; i++){
+    brunnenMarkers[i].addListener('click', ()=>{
+      closeInfoWindows(infoWindows);
+      infoWindows[i].open(map, brunnenMarkers[i]);
+    });
+  }
+}
 
+//Close all open info windows when a new one gets clicked
+function closeInfoWindows(infoWindows){
+  infoWindows.forEach(window =>{
+    window.close();
+  })
+}
 
 
 
@@ -91,7 +150,7 @@ function initMap() {
       positionMarker = createGeoMarker({position:initialPosition, icon:geoMarkerIcon, map:map});
       
       //Request data about the brunnen - this can be done only once the map has been created
-      //getBrunnenData(map);
+      getArtData(map);
     },
     onError: err =>
       alert(`Error: ${getPositionErrorMessage(err.code) || err.message}`)

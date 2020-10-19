@@ -61,35 +61,6 @@
     }
   }, {
     "type": "Feature",
-    "id": "KUNSTWERKOGD.196776",
-    "geometry": {
-      "type": "Point",
-      "coordinates": [16.360726166363282, 48.21054741077406]
-    },
-    "geometry_name": "SHAPE",
-    "properties": {
-      "OBJECTID": 196776,
-      "ID": -94678,
-      "PLZ": 1010,
-      "ORT": "Wien",
-      "STRASSE": "Löwelstraße 1",
-      "STANDORT": "Burgtheater",
-      "TYP": null,
-      "OBJEKTTITEL": "Zweite Türkenbelagerung - Gedenktafel",
-      "VULGONAMEN": null,
-      "BIOGR_ANGABEN": null,
-      "INSCHRIFT": "Vom 8ten bis 11ten Sept. 1683 / wiesen von hier aus / die tapferen / Verteidiger Wiens / die heftigsten und / letzten Angriffe der / Türken zurück",
-      "BESCHREIBUNG": null,
-      "MATERIAL": "Stein",
-      "ENTSTEHUNG": null,
-      "EPOCHE": "10 Späthistorismus/Jugendstil/Neoklassizismus",
-      "KUENSTLER": null,
-      "GESCHICHTE": null,
-      "LITERATURQUELLEN": null,
-      "SE_ANNO_CAD_DATA": null
-    }
-  }, {
-    "type": "Feature",
     "id": "KUNSTWERKOGD.196774",
     "geometry": {
       "type": "Point",
@@ -44223,64 +44194,6 @@
       "EPOCHE": "12 Nach 1945",
       "KUENSTLER": "Lois WEINBERGER",
       "GESCHICHTE": "Die Installation am Liftturm der Street Art Passage Vienna schlägt die künstlerische Brücke zu den Tags, Graffitis und vergänglichen Kommentaren, die in Wien die Straßen des angrenzenden 7. Bezirks prägen. Weinbergers (*1947) Installation nimmt sowohl deren Schriftlichkeit als auch ihre wuchernden, rauschartigen Aspekte auf und spiegelt sie ins Kulturareal des MuseumsQuartier Wien hinein.",
-      "LITERATURQUELLEN": null,
-      "SE_ANNO_CAD_DATA": null
-    }
-  }, {
-    "type": "Feature",
-    "id": "KUNSTWERKOGD.195232",
-    "geometry": {
-      "type": "Point",
-      "coordinates": [16.35821023027915, 48.22562484886044]
-    },
-    "geometry_name": "SHAPE",
-    "properties": {
-      "OBJECTID": 195232,
-      "ID": 87312,
-      "PLZ": 1090,
-      "ORT": "Wien",
-      "STRASSE": "Marktgasse 3-7, Thury-Hof",
-      "STANDORT": null,
-      "TYP": null,
-      "OBJEKTTITEL": "[ transkription ]",
-      "VULGONAMEN": null,
-      "BIOGR_ANGABEN": null,
-      "INSCHRIFT": null,
-      "BESCHREIBUNG": null,
-      "MATERIAL": null,
-      "ENTSTEHUNG": "2010",
-      "EPOCHE": "12 Nach 1945",
-      "KUENSTLER": "Maria Theresia LITSCHAUER",
-      "GESCHICHTE": "Die Auseinandersetzung der österreichischen Künstlerin Maria Theresia Litschauer (*1950) mit dem Kriegerdenkmal von Alfred Crepaz zielt auf eine Kontextualisierung von nationalsozialistischer Kunst. Mittels Zeichen, Betonband und Schrifttafel wird der ideologische Hintergrund dieser Statue ebenso kritisch thematisiert, wie das lesbare Hitler-Zitat aus 1933 bewusst gemacht.",
-      "LITERATURQUELLEN": null,
-      "SE_ANNO_CAD_DATA": null
-    }
-  }, {
-    "type": "Feature",
-    "id": "KUNSTWERKOGD.195231",
-    "geometry": {
-      "type": "Point",
-      "coordinates": [16.33545836161119, 48.19217938723096]
-    },
-    "geometry_name": "SHAPE",
-    "properties": {
-      "OBJECTID": 195231,
-      "ID": 87313,
-      "PLZ": 1150,
-      "ORT": "Wien",
-      "STRASSE": "Turnergasse 22 /Dingelstedtgasse",
-      "STANDORT": null,
-      "TYP": null,
-      "OBJEKTTITEL": "Turnertempel",
-      "VULGONAMEN": null,
-      "BIOGR_ANGABEN": null,
-      "INSCHRIFT": null,
-      "BESCHREIBUNG": null,
-      "MATERIAL": null,
-      "ENTSTEHUNG": "2011",
-      "EPOCHE": "12 Nach 1945",
-      "KUENSTLER": "Iris ANDRASCHEK; Atelier Auböck + Kárász; Hubert LOBNIG",
-      "GESCHICHTE": "Iris Andraschek (*1963) & Hubert Lobnig (*1962) und das Atelier Auböck + Kárász gestalteten als zentrales Element ein Netz aus schwarzen Betonbalken, das den zerborstenen Dachstuhl des Turnertempels (zerstört vom 9. auf den 10. November 1938) symbolisiert. Mosaiken zeigen u. a. Früchte und Pflanzen aus der Torah.\r\n",
       "LITERATURQUELLEN": null,
       "SE_ANNO_CAD_DATA": null
     }
