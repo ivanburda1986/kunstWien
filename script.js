@@ -74,47 +74,45 @@ function getArtData(map){
     })
     //Only once the data is loaded request adding the markers
 
-    //Object.entries(artCollection).forEach(entry=>{addMarkers(entry[1]),map});
-
-    // addMarkers(Object.entries(artCollection)[0][1],map);
-    // addMarkers(Object.entries(artCollection)[1][1],map);
-    // addMarkers(Object.entries(artCollection)[2][1],map);
-    // addMarkers(Object.entries(artCollection)[3][1],map);
-    addMarkers(Object.entries(artCollection)[4][1],map);
-    // addMarkers(Object.entries(artCollection)[5][1],map);
-    // addMarkers(Object.entries(artCollection)[6][1],map);
+      // addMarkers(Object.entries(artCollection)[0][1],map);
+      // addMarkers(Object.entries(artCollection)[1][1],map);
+      // addMarkers(Object.entries(artCollection)[2][1],map);
+         addMarkers(Object.entries(artCollection)[3][1],map);
+      // addMarkers(Object.entries(artCollection)[4][1],map);
+      // addMarkers(Object.entries(artCollection)[5][1],map);
+      // addMarkers(Object.entries(artCollection)[6][1],map);
   })
   
 };
 
 //Add a location marker onto the map
-function addMarkers(brunnen,map){
-  let brunnenMarkers = [];
+function addMarkers(artObjects,map){
+  let artObjectMarkers = [];
   let infoWindows = [];
-  brunnen.forEach(brunne =>{
-    brunnenMarkers.push(new google.maps.Marker({position: brunne.coordinates, map: map})); //removed the label: {text: brunne.name, fontWeight: "500"},
-    infoWindows.push(new google.maps.InfoWindow({content: `${brunne.name}, ${brunne.author}, ${brunne.buildIn}`}));
+  artObjects.forEach(artObject =>{
+    artObjectMarkers.push(new google.maps.Marker({position: artObject.coordinates, map: map})); //removed the label: {text: brunne.name, fontWeight: "500"},
+    infoWindows.push(new google.maps.InfoWindow({content: `${artObject.name}, ${artObject.author}, ${artObject.buildIn}`}));
   });
   //Attach info windows
-  attachInfoWindows(brunnenMarkers, infoWindows, map);
+  attachInfoWindows(artObjectMarkers, infoWindows, map);
   //Once the markers have been added request clustering them
-  clusterMarkers(brunnenMarkers, map);
+  clusterMarkers(artObjectMarkers, map);
 }
 
 //Cluster the markers
-function clusterMarkers(brunnenMarkers, map){
-  new MarkerClusterer(map, brunnenMarkers, {
+function clusterMarkers(artObjectMarkers, map){
+  new MarkerClusterer(map, artObjectMarkers, {
     imagePath:
       "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
   });
 }
 
 //Attach info windows to markers
-function attachInfoWindows(brunnenMarkers, infoWindows, map){
-  for(let i = 0; i<brunnenMarkers.length; i++){
-    brunnenMarkers[i].addListener('click', ()=>{
+function attachInfoWindows(artObjectMarkers, infoWindows, map){
+  for(let i = 0; i<artObjectMarkers.length; i++){
+    artObjectMarkers[i].addListener('click', ()=>{
       closeInfoWindows(infoWindows);
-      infoWindows[i].open(map, brunnenMarkers[i]);
+      infoWindows[i].open(map, artObjectMarkers[i]);
     });
   }
 }
@@ -149,7 +147,7 @@ function initMap() {
       let geoMarkerIcon = 'myPositionDot.png';
       positionMarker = createGeoMarker({position:initialPosition, icon:geoMarkerIcon, map:map});
       
-      //Request data about the brunnen - this can be done only once the map has been created
+      //Request data about the artObject - this can be done only once the map has been created
       getArtData(map);
     },
     onError: err =>
@@ -168,3 +166,23 @@ function initMap() {
   });
 
 }
+
+function getDistanceBetweenTwoPointsInM(lat1,lng1,lat2,lng2){
+  //
+  var R = 6371;
+  var dLat = deg2rad(lat2-lat1);
+  var dLng = deg2rad(lng2-lng1);
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+    Math.sin(dLng/2) * Math.sin(dLng/2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  var d = R * c * 1000; //distance in m
+  return d;
+
+function deg2rad(deg){
+  return deg * (Math.PI/180);
+}
+
+}
+
