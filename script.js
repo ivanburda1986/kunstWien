@@ -46,6 +46,7 @@ const getPositionErrorMessage = code => {
 
 // Load external JSON data about the art objects
 function getArtData(map, initialPosition, acceptableDistance){
+  console.log(arguments);
   let artCollection = {};
   fetch("kunstWien.json")
   .then(response => response.json())
@@ -164,6 +165,7 @@ function initMap() {
   trackLocation({
     onSuccess: ({coords: {latitude: lat, longitude: lng}}) => {
       positionMarker.setPosition({lat, lng});
+      getArtData(map, initialPosition,acceptableDistance);
       //map.panTo({lat, lng}); //Continuously center the map to the user's postion
     },
     onError: err =>
