@@ -26,7 +26,7 @@ const trackLocation = ({onSuccess, onError = () => {}}) =>{
   }
   return navigator.geolocation.watchPosition(onSuccess, onError, {
     enableHighAccuracy: true,
-    timeout: 5000,
+    timeout: 10000,
     maximumAge: 0
   });
 }
@@ -45,7 +45,7 @@ const getPositionErrorMessage = code => {
 
 
 // Load external JSON data about the art objects
-function getArtData(map){
+function getArtData(map, initialPosition, acceptableDistance){
   let artCollection = {};
   fetch("kunstWien.json")
   .then(response => response.json())
@@ -54,11 +54,15 @@ function getArtData(map){
     data.features.forEach(artObject =>{
       //If the artCollection object already has an entry representing the art-type of the specific art data item, we just push the item into the entry array
       if(artObject.properties.TYP in artCollection){
-        pushData();
+        if(getDistanceBetweenTwoPointsInM(initialPosition.lat,initialPosition.lng,artObject.geometry.coordinates[1],artObject.geometry.coordinates[0]) < acceptableDistance){
+          pushData();
+        }
       //Else we first create an entry representing the art type and push the art data item into it only afterwards
       } else{
         artCollection[artObject.properties.TYP] = [];
-        pushData();
+        if(getDistanceBetweenTwoPointsInM(initialPosition.lat,initialPosition.lng,artObject.geometry.coordinates[1],artObject.geometry.coordinates[0]) < acceptableDistance){
+          pushData();
+        }
       }
       //Pushes specific art data item into the entry-array of its type within the artCollection
       function pushData(){
@@ -74,15 +78,15 @@ function getArtData(map){
     })
     //Only once the data is loaded request adding the markers
 
-      // addMarkers(Object.entries(artCollection)[0][1],map);
-      // addMarkers(Object.entries(artCollection)[1][1],map);
-      // addMarkers(Object.entries(artCollection)[2][1],map);
-         addMarkers(Object.entries(artCollection)[3][1],map);
-      // addMarkers(Object.entries(artCollection)[4][1],map);
-      // addMarkers(Object.entries(artCollection)[5][1],map);
-      // addMarkers(Object.entries(artCollection)[6][1],map);
+      addMarkers(Object.entries(artCollection)[0][1],map);
+      addMarkers(Object.entries(artCollection)[1][1],map);
+      addMarkers(Object.entries(artCollection)[2][1],map);
+      addMarkers(Object.entries(artCollection)[3][1],map);
+      addMarkers(Object.entries(artCollection)[4][1],map);
+      addMarkers(Object.entries(artCollection)[5][1],map);
+      addMarkers(Object.entries(artCollection)[6][1],map);
   })
-  
+  console.log(initialPosition);
 };
 
 //Add a location marker onto the map
@@ -133,6 +137,7 @@ function initMap() {
   let initialPosition;
   let map;
   let positionMarker;
+  const acceptableDistance = 500; //Art object located at this maximum distance (in meters) from the initial position should be displayed on the map.
 
   //Gets current location of the user
   getCurrentPosition({
@@ -148,7 +153,7 @@ function initMap() {
       positionMarker = createGeoMarker({position:initialPosition, icon:geoMarkerIcon, map:map});
       
       //Request data about the artObject - this can be done only once the map has been created
-      getArtData(map);
+      getArtData(map, initialPosition,acceptableDistance);
     },
     onError: err =>
       alert(`Error: ${getPositionErrorMessage(err.code) || err.message}`)
