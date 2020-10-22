@@ -2,7 +2,7 @@
 const createMap = ({lat, lng}) =>{
   return new google.maps.Map(document.getElementById('map'),{
     center: {lat, lng},
-    zoom: 13
+    zoom: 16
   });
 };
 
@@ -26,7 +26,7 @@ const trackLocation = ({onSuccess, onError = () => {}}) =>{
   }
   return navigator.geolocation.watchPosition(onSuccess, onError, {
     enableHighAccuracy: true,
-    timeout: 10000,
+    timeout: 5000,
     maximumAge: 0
   });
 }
@@ -96,7 +96,7 @@ function addMarkers(artObjects,map){
   let infoWindows = [];
   artObjects.forEach(artObject =>{
     artObjectMarkers.push(new google.maps.Marker({position: artObject.coordinates, map: map})); //removed the label: {text: brunne.name, fontWeight: "500"},
-    infoWindows.push(new google.maps.InfoWindow({content: `${artObject.name}, ${artObject.author}, ${artObject.buildIn}`}));
+    infoWindows.push(new google.maps.InfoWindow({content: `${artObject.name !== null ? artObject.name+'.':''} ${artObject.author !== null ? artObject.author+'.':''} ${artObject.buildIn !== null ? artObject.buildIn:''}`}));
   });
   //Attach info windows
   attachInfoWindows(artObjectMarkers, infoWindows, map);
