@@ -165,7 +165,7 @@ function initMap() {
   trackLocation({
     onSuccess: ({coords: {latitude: lat, longitude: lng}}) => {
       positionMarker.setPosition({lat, lng});
-      getArtData(map, initialPosition,acceptableDistance);
+      //getArtData(map, initialPosition,acceptableDistance); //this would refresh the nearby art items based on the movement of the user
       //map.panTo({lat, lng}); //Continuously center the map to the user's postion
     },
     onError: err =>
